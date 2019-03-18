@@ -1,0 +1,57 @@
+@import '../../../App.css';
+
+.todoapp__leftsidebar__container {
+    display: flex;
+    flex-direction: column;
+    width: 20em;
+    max-width: 320px;
+
+    background: #f4f4f4;
+    height: 100vh;
+    overflow: auto;
+
+    border-right: 1px solid #eaeaea;
+}
+
+
+.todoapp__leftsidebar__container .listItem {
+    height: 36px;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+
+.todoapp__leftsidebar__container .listItem-inner {
+    height: 36px;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 12px;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+}
+
+.todoapp__leftsidebar__container .listItem-icon {
+    color: var(--primary-color);
+}
+
+.todoapp__leftsidebar__container .listItem-title {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    margin: 0 8px;
+}
+
+.todoapp__leftsidebar__container .listItem-count {
+    margin-left: auto;
+}
+
+.listItem--selected .listItem-count,
+.listItem--selected .listItem-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.listItem--selected .listItem-inner {
+    background: var(--black-light-color-2);
+}
