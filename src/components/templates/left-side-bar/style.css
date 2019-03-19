@@ -59,3 +59,19 @@
 .listItem--selected .listItem-inner {
     background: var(--black-light-color-2);
 }
+.listItem-inner input[type="text"] {
+    font-size: 14px;
+    padding: 16px 12px;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100%;
+}
+
+.listItem-inner input[type="text"]::placeholder {
+    color: var(--primary-color);
+}
+.listItem-inner input[type="text"]:focus::placeholder {
+    color: var(--black-light-color);
+}

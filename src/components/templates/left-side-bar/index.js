@@ -9,7 +9,9 @@ import './style.css';
 class LeftSideBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            label: ''
+        }
     }
 
     render() {
@@ -29,6 +31,15 @@ class LeftSideBar extends Component {
                         id,
                         label
                     }
+                }
+            }
+        `;
+
+        const TASKLIST_MUTATION = gql`
+            mutation AddTaskListMutation ($label: String!,$user: ID!) {
+                addTaskList(label:$label, user: $user) {
+                    id,
+                    label
                 }
             }
         `;
@@ -59,6 +70,40 @@ class LeftSideBar extends Component {
                                  }
                              </div>
                          }
+                        <div className="listItem">
+                            <div className="listItem-inner" role="button">
+                                <span className="listItem-icon">
+                                    <span className="icon icon-add"></span>
+                                </span>
+                                <Mutation
+                                    mutation={TASKLIST_MUTATION}
+                                    variables={{ label: this.state.label, user: Number(this.props.user.id) }}
+                                    onCompleted={({ addTaskList }) => {
+                                        this.setState({ label: '' })
+                                        const { id, label } = addTaskList;
+                                        user.taskslists.push({ id, label });
+                                        console.log(user.taskslists)
+                                        }
+                                    }
+                                >
+                                    {mutation => (
+                                        <input
+                                            onClick={e => this.setState({ taskListFocused: true })}
+                                            onBlur={e => this.setState({ taskListFocused: false }, () => {
+                                                return this.state.label.length ? mutation() : null
+                                            })}
+                                            onKeyPress={e => {
+                                                if (e.which == 13 || e.keyCode == 13) mutation()
+                                            }}
+                                            value={ this.state.label }
+                                            onChange={e => this.setState({ label: e.target.value })}
+                                            type="text"
+                                            placeholder="Nouvelle liste"
+                                        />
+                                    )}
+                                </Mutation>
+                            </div>
+                        </div>
                      </div>
                     )
                 }}
