@@ -8,10 +8,6 @@ class RightSideBar extends Component {
         super(props)
     };
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-    }
-
     render() {
         return (
             <div className={`todoapp__rightsidebar__container todoapp__rightsidebar__container--${this.props.status || 'close'}`}>

@@ -4,6 +4,8 @@
     display: flex;
     flex: 1;
     position: relative;
+    max-height: 100vh;
+    overflow: auto;
 }
 
 .todoapp__tasklisttemplate__container__layer {
@@ -56,7 +58,32 @@
     color: var(--primary-color)
 }
 
+.tasks-item-status .icon {
+    transition: .3s ease-in-out;
+}
+
 .task-completed {
     text-decoration: line-through;
     color: var(--black-light-color);
+}
+
+.tasks-item input[type="text"] {
+    font-size: 14px;
+    padding: 16px 12px;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100%;
+}
+
+.tasks-item input[type="text"]::placeholder {
+    color: var(--primary-color);
+} 
+.tasks-item input[type="text"]:focus::placeholder {
+    color: var(--black-light-color);
+} 
+
+#add-task {
+    width: 100%;
 }

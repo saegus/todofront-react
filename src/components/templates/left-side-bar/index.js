@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import { gql } from "apollo-boost";
 import { NavLink, withRouter } from 'react-router-dom';
 import './style.css';
@@ -8,14 +8,14 @@ import './style.css';
 
 class LeftSideBar extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {}
     }
 
     render() {
-        const LIST_TASKS = gql`
+        const QUERY_ME = gql`
             query {
-                users(id: 1) {
+                me {
                     id
                     folders {
                         id
@@ -34,35 +34,36 @@ class LeftSideBar extends Component {
         `;
 
         return (
-            <Query query={LIST_TASKS}>
+            <Query query={QUERY_ME}>
                 {({ loading, error, data }) => {
-                    if (loading) return <p>Loading...</p>;
-                    if (error) return <p>Error...</p>;
-                    let user = data.users[0];
-                    return (
-                        <div className="todoapp__leftsidebar__container">
-                            {!loading && user &&
-                                <div key={user.id} className="">
-                                    {
-                                        user.taskslists.map(tasklist => {
-                                            return (
-                                            <NavLink activeClassName="listItem--selected" to={`/home/${tasklist.id}`} className="listItem" key={tasklist.id}>
-                                                <div id={tasklist.id} key={tasklist.id} className="listItem-inner" role="button">
-                                                    <span className="listItem-icon">
-                                                        <span className="icon icon-list"></span>
-                                                    </span>
-                                                    <span className="listItem-title">{ tasklist.label }</span>
-                                                    <span className="listItem-count">1</span>
-                                                </div>
-                                            </NavLink>
-                                        )})
-                                    }
-                                </div>
-                            }
-                        </div>
-                    );
+                if (loading) return <p>Loading...</p>;
+                if (error) return <p>Error...</p>;
+                const user = data.me;
+                return (
+                    <div className="todoapp__leftsidebar__container">
+                         {!loading && user &&
+                             <div key={user.id} className="">
+                                 {
+                                     user.taskslists.map(tasklist => {
+                                         return (
+                                         <NavLink activeClassName="listItem--selected" to={`/home/${tasklist.id}`} className="listItem" key={tasklist.id}>
+                                             <div id={tasklist.id} key={tasklist.id} className="listItem-inner" role="button">
+                                                 <span className="listItem-icon">
+                                                     <span className="icon icon-list"></span>
+                                                 </span>
+                                                 <span className="listItem-title">{ tasklist.label }</span>
+                                                 <span className="listItem-count">1</span>
+                                             </div>
+                                         </NavLink>
+                                     )})
+                                 }
+                             </div>
+                         }
+                     </div>
+                    )
                 }}
             </Query>
+                    
         );
     }
 }

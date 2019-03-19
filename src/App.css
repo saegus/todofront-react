@@ -13,7 +13,9 @@ button {
     border: none;
     box-shadow: none;
 }
-button:focus {outline:0;}
+button:focus,
+input:focus {outline:0;}
+
 
 .App {
   text-align: center;

@@ -21,6 +21,10 @@
     text-decoration: none;
 }
 
+.todoapp__leftsidebar__container .listItem-inner:hover {
+    background: #fafafa;
+}
+
 .todoapp__leftsidebar__container .listItem-inner {
     height: 36px;
     align-items: center;
