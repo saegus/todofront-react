@@ -14,10 +14,12 @@
 
 .todoapp__rightsidebar__container--open {
     width: 20em;
+    transition: width .15s ease-in;
 }
 
 .todoapp__rightsidebar__container--close {
     width: 0;
+    transition: width .15s ease-in;
 }
 
 .todoapp__rightsidebar__content {
@@ -36,4 +38,23 @@
     display: flex;
     flex-direction: column;
     font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.todoapp__rightsidebar__container .task-information--container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.todoapp__rightsidebar__container .task-information--container > div {
+    text-align: left;
+    flex: 1;
+}
+.todoapp__rightsidebar__container .tasks-item-status {
+    margin-right: 10px;
+    transform: translateY(1px);
 }

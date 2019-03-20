@@ -1,0 +1,80 @@
+.todoapp__login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+}
+
+form.todoapp__login--form {
+    display: flex;
+    width: 350px;
+    border: solid 1px #dddddd; 
+    padding: 10px 15px;
+    background: #FFFFFF;
+    flex-direction: column;
+}
+
+form.todoapp__login--form .form-group {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 40px;
+    border-top: solid 1px #dddddd;
+    margin-bottom: 5px;
+    padding-top: 5px;
+}
+form.todoapp__login--form .form-group:first-child {
+    border-top: none;
+}
+
+form.todoapp__login--form .form-group > span {
+    margin-right: 10px;
+    font-size: 20px;
+    color: var(--primary-color);
+    transform: translateY(2px);
+}
+
+form.todoapp__login--form .form-group > input[type="email"],
+form.todoapp__login--form .form-group > input[type="password"],
+form.todoapp__login--form .form-group > input[type="text"]
+{
+    border: none;
+    height: 100%;
+    display: flex;
+    flex: 1;
+}
+
+form.todoapp__login--form input[type="submit"] {
+    margin: 10px 0;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    border: solid 1px var(--primary-color);
+    color: var(--primary-color);
+    transition: .2s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+form.todoapp__login--form input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border: solid 1px var(--primary-color);
+    color: #fafafa;
+    transition: .2s ease;
+}
+
+.todoapp__login .todoapp__login--signup-handler {
+    margin: 10px;
+    font-size: 14px;
+}
+
+.todoapp__login .todoapp__login--signup-handler button {
+    color: var(--primary-color);
+    font-weight: 500;  
+}

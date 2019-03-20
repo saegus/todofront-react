@@ -11,8 +11,99 @@
     overflow: auto;
 
     border-right: 1px solid #eaeaea;
+    position: relative;
+    transition: .1s ease;
 }
 
+.todoapp__leftsidebar__container.todoapp__leftsidebar__container--closed {
+    transition: .1s ease;
+    width: 3.2em;
+}
+
+.todoapp__leftsidebar__container .todoapp__leftsidebar__container__user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: #FAFAFA;
+}
+
+.todoapp__leftsidebar__container__user .todoapp__leftsidebar__container__user--actions {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+    
+    filter: grayscale(0.3);
+    display: flex;
+    width: 100%;
+    padding: 0 10px;
+    justify-content: space-between;
+    background: var(--primary-color);
+}
+
+.todoapp__leftsidebar__container__user--actions button {
+    width: auto !important;
+    height: auto !important;
+    color: #ededed;
+    border: solid 1px var(--primary-color);
+    border-radius: 2px;
+    padding: 4px 7px;
+    transition: .2s ease;
+}
+
+.todoapp__leftsidebar__container__user--actions button:hover {
+    border: solid 1px #ededed;
+    background: #FFF;
+    transition: .2s ease;
+    color: var(--primary-color);
+}
+
+
+.todoapp__leftsidebar__container__user .todoapp__leftsidebar__container__user--info {
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    padding: 0 10px;
+}
+
+.todoapp__leftsidebar__container__user--info .profile-picture {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.todoapp__leftsidebar__container__user--info span {
+    font-weight: 600;
+    margin-left: 10px;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.todoapp__leftsidebar__container .todoapp__leftsidebar__container__user {
+    height: 100px;
+    box-shadow: 0 17px 0 -16px #eaeaea;
+}
+.todoapp__leftsidebar__container .todoapp__leftsidebar__container__taskslists {
+    overflow: auto;
+    position: relative;
+}
+
+#task-list-adder {
+    width: 100%;
+    height: 47px;
+    bottom: 0;
+}
 
 .todoapp__leftsidebar__container .listItem {
     height: 36px;
@@ -29,7 +120,7 @@
     height: 36px;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 12px;
+    padding: 0 17px;
     cursor: pointer;
     display: flex;
     font-size: 14px;
@@ -49,6 +140,9 @@
 
 .todoapp__leftsidebar__container .listItem-count {
     margin-left: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .listItem--selected .listItem-count,

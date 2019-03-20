@@ -5,10 +5,18 @@ import './style.css';
 import { Query, Mutation } from "react-apollo";
 import { gql } from "apollo-boost";
 
+import ActionPopup from '../../organisms/action-popup';
+import ActionPopupContainer from '../../molecules/action-popup-container';
+import ActionPopupElement from '../../atoms/action-popup-element';
+import ActionPopupHeader from '../../atoms/action-popup-header';
+import ActionPopupBody from '../../atoms/action-popup-body';
+
+import { openPopup } from '../../../services/popup.service';
+
 class TaskListTemplate extends Component {
     constructor(props) {
         super(props);
-        this.state = { description : '' };
+        this.state = { description: '' };
         this.handleClick = this.handleClick.bind(this);
         this.emptyDescription = this.emptyDescription.bind(this);
     };
@@ -28,11 +36,10 @@ class TaskListTemplate extends Component {
                     label
                     folder {id}
                     tasks {
-                        id
-                        description
-                        status
-                        user {
+                        tasks {
                             id
+                            description
+                            status
                         }
                     }
                 }
@@ -62,13 +69,43 @@ class TaskListTemplate extends Component {
 
                     return (
                         <div className="todoapp__tasklisttemplate__container">
+                            <div className="todoapp__tasklisttemplate__container__background">
+                                <div className="todoapp__tasklisttemplate__container--background"></div>
+                                <div className="todoapp__tasklisttemplate__container--gradient"></div>
+                            </div>
                             <div className="todoapp__tasklisttemplate__container__layer">
+                                <div className="todoapp__tasklisttemplate__container__header">
+                                    <span className="tasklist-name"> 
+                                        {tasklist.label}&nbsp;&nbsp;
+                                        <ActionPopup id="edit-task-popup">
+                                            <ActionPopupContainer>
+                                                <ActionPopupHeader>
+                                                    <span className="popup-tasklist-header">Options de liste</span>
+                                                </ActionPopupHeader>
+                                                <ActionPopupBody>
+                                                    <div className="popup-tasklist-actions">
+                                                        <ul>
+                                                            <li>Modifier la liste</li>
+                                                            <li>Supprimer la liste</li>
+                                                            <li>Changer la couleur</li>
+                                                        </ul>
+                                                    </div>
+                                                </ActionPopupBody>
+                                            </ActionPopupContainer>
+                                            <ActionPopupElement>
+                                                <button className="edit-task" onClick={e => { openPopup(e, "edit-task-popup") }}>
+                                                    {/* <i className="icon icon-more"></i> */}
+                                                    more
+                                                </button>
+                                            </ActionPopupElement>
+                                        </ActionPopup>
+                                     </span>
+                                </div>
                                 <div className="todoapp__tasklisttemplate__container__flexboxFix">
-                                    
                                     {!loading && tasklist &&
                                         <div key={tasklist.id} className="tasks">
                                             {
-                                                tasklist.tasks.map(task => {
+                                                tasklist.tasks.tasks.map(task => {
                                                     return (
                                                         <div className="tasks-item" key={ task.id}>
                                                             <span className="tasks-item-status">
@@ -80,44 +117,48 @@ class TaskListTemplate extends Component {
                                                                 onClick={ this.handleClick }>
                                                                     { task.description}
                                                                 </button>
-                                                            <span className="tasks-item-fav"></span>
+                                                            <span className="tasks-item-fav">
+                                                                <span className={`icon ${task.favorited ? 'icon-star-filled' : 'icon-star'}`}></span>
+                                                            </span>
                                                         </div>
                                                     )
                                                 })
                                             }
-                                            <div className="tasks-item" id="add-task">
-                                                <span className="tasks-item-status">
-                                                    <span className={`icon ${ taskFocused ? 'icon-empty' : 'icon-add' }`}></span>
-                                                </span>
-                                                <Mutation
-                                                    mutation={TASK_MUTATION}
-                                                    variables={{ description, user: Number(this.props.user.id), tasklist: Number(this.props.match.params.id) }}
-                                                    onCompleted={ ({ addTask }) => {
-                                                            this.emptyDescription();
-                                                            const { id, description, status } = addTask;
-                                                            tasklist.tasks.push({ id, description, status });
-                                                        }
-                                                    }
-                                                >
-                                                    {mutation => (
-                                                        <input
-                                                            onClick={e => this.setState({ taskFocused: true })}
-                                                            onBlur={e => this.setState({ taskFocused: false }, () => {
-                                                                return this.state.description.length ? mutation() : null
-                                                            })}
-                                                            onKeyPress={e => {
-                                                                if (e.which == 13 || e.keyCode == 13) mutation()
-                                                            }}
-                                                            value={ description }
-                                                            onChange={e => this.setState({ description: e.target.value })}
-                                                            type="text"
-                                                            placeholder="Ajouter une tâche"
-                                                        />
-                                                    )}
-                                                </Mutation>
-                                            </div>
                                         </div>
                                     }
+                                    <div>
+                                        <div className="tasks-item" id="add-task">
+                                            <span className="tasks-item-status">
+                                                <span className={`icon ${taskFocused ? 'icon-empty' : 'icon-add'}`}></span>
+                                            </span>
+                                            <Mutation
+                                                mutation={TASK_MUTATION}
+                                                variables={{ description, user: Number(this.props.user.id), tasklist: Number(this.props.match.params.id) }}
+                                                onCompleted={({ addTask }) => {
+                                                    this.emptyDescription();
+                                                    const { id, description, status } = addTask;
+                                                    tasklist.tasks.tasks.push({ id, description, status });
+                                                }
+                                                }
+                                            >
+                                                {mutation => (
+                                                    <input
+                                                        onClick={e => this.setState({ taskFocused: true })}
+                                                        onBlur={e => this.setState({ taskFocused: false }, () => {
+                                                            return this.state.description.length ? mutation() : null
+                                                        })}
+                                                        onKeyPress={e => {
+                                                            if (e.which === 13 || e.keyCode === 13) mutation()
+                                                        }}
+                                                        value={description}
+                                                        onChange={e => this.setState({ description: e.target.value })}
+                                                        type="text"
+                                                        placeholder="Ajouter une tâche"
+                                                    />
+                                                )}
+                                            </Mutation>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

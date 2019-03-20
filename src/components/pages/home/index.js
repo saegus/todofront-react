@@ -4,11 +4,9 @@ import { Query } from "react-apollo";
 import { gql } from "apollo-boost";
 
 import './style.css';
-
-import { setUser } from '../../../services/user.service';
-
 import LeftSideBar from '../../templates/left-side-bar';
 import ListDetails from '../../templates/list-details';
+import { closeAllPopups } from '../../../services/popup.service';
 
 
 class Home extends Component {
@@ -19,6 +17,13 @@ class Home extends Component {
         };
         this._setUser = this._setUser.bind(this);
     };
+
+    componentDidMount() {
+        window.addEventListener('click', closeAllPopups)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('click', closeAllPopups);
+    }
     
     _setUser = user => {
         if (this.state.isFirstRender) return this.setState({ ...user, isFirstRender: false })
@@ -32,6 +37,9 @@ class Home extends Component {
             query {
                 me {
                     id
+                    first_name
+                    last_name
+                    profile_picture
                 }
             }
         `;
@@ -45,6 +53,7 @@ class Home extends Component {
                     if (loading && !user) return <p>Loading...</p>;
                     if (error) return <p>Error...</p>;
                     const { me } = data;
+                    console.log(me)
                     return ( <div className="todoapp__container">
                             <LeftSideBar user={ me }/>
                             <Route pattern='/home' path='/home/:id' component={ ListDetailsComponent } />

@@ -1,0 +1,5 @@
+.action-popup {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { gql } from "apollo-boost";
 import './style.css';
@@ -56,60 +56,128 @@ class Login extends Component {
         `;
 
         return (
-            <div>
-                <h4 className="">{login ? 'Login' : 'Sign Up'}</h4>
-                <div className="">
-                    {!login && (
-                        <React.Fragment>
-                            <input
-                                value={last_name}
-                                onChange={e => this.setState({ last_name: e.target.value })}
-                                type="text"
-                                placeholder="Your last name"
+            <div className="todoapp__login">
+                <Mutation
+                    mutation={this.state.login ? LOGIN_MUTATION : SIGNUP_MUTATION }
+                    variables={{ email, password, first_name, last_name }}
+                    onCompleted={data => this._confirm(data)}
+                >
+                    {mutation => (
+                        <form className="todoapp__login--form" onSubmit={(e) => { e.preventDefault(); mutation() } }>
+                        {!login && 
+                            (
+                                <React.Fragment>
+                                    <div className="form-group">
+                                        <span>
+                                            <span className="icon icon-id-card"></span>
+                                        </span>
+                                        <input
+                                            value={first_name}
+                                            onChange={e => this.setState({ first_name: e.target.value })}
+                                            type="text"
+                                            placeholder="Prénom"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <span>
+                                            <span className="icon icon-id-card"></span>
+                                        </span>
+                                        <input
+                                            value={last_name}
+                                            onChange={e => this.setState({ last_name: e.target.value })}
+                                            type="text"
+                                            placeholder="Nom"
+                                        />
+                                    </div>
+                                </React.Fragment>
+                            )
+                        }
+                        <div className="form-group">
+                            <span>
+                                <span className="icon icon-mail"></span>
+                            </span>
+                            <input 
+                                value={email}   
+                                onChange={e => this.setState({ email: e.target.value })}
+                                type="email" 
+                                placeholder="Adresse email"
                             />
+                        </div>
+                        <div className="form-group">
+                            <span>
+                                <span className="icon icon-lock"></span>
+                            </span>
                             <input
-                                value={first_name}
-                                onChange={e => this.setState({ first_name: e.target.value })}
-                                type="text"
-                                placeholder="Your last name"
+                                value={password}
+                                onChange={e => this.setState({ password: e.target.value })} 
+                                type="password" 
+                                placeholder="Mot de passe"
                             />
-                        </React.Fragment>
+                        </div>
+                        <div className="form-submit">
+                            <input type="submit" value={login ? 'Se connecter' : 'Créer mon compte'} onClick={ (e) => { e.preventDefault(); mutation() } } />
+                        </div>
+                    </form>
                     )}
-                    <input
-                        value={email}
-                        onChange={e => this.setState({ email: e.target.value })}
-                        type="text"
-                        placeholder="Your email address"
-                    />
-                    <input
-                        value={password}
-                        onChange={e => this.setState({ password: e.target.value })}
-                        type="password"
-                        placeholder="Choose a safe password"
-                    />
-                </div>
-                <div className="">
-                    <Mutation
-                        mutation={this.state.login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-                        variables={{ email, password, first_name, last_name }}
-                        onCompleted={data => this._confirm(data)}
-                    >
-                        {mutation => (
-                            <div className="" onClick={mutation}>
-                                {this.state.login ? 'login' : 'create account'}
-                            </div>
-                        )}
-                    </Mutation>
-                    <div
-                        className=""
-                        onClick={() => this.setState({ login: !login })}
-                    >
-                        {login
-                            ? 'need to create an account?'
-                            : 'already have an account?'}
-                    </div>
+                </Mutation>
+                <div className="todoapp__login--signup-handler">
+                    {login ? (<button onClick={() => this.setState({ login: !login })}> Pas encore de compte ? Inscrivez-vous gratuitement</button>) : (<button onClick={() => this.setState({ login: !login })}> Déjà un compte ? Connectez-vous sans attendre !</button>)}
                 </div>
             </div>
+            // <div>
+            //     <h4 className="">{login ? 'Login' : 'Sign Up'}</h4>
+            //     <div className="">
+            //         {!login && (
+            //             <React.Fragment>
+            //                 <input
+            //                     value={last_name}
+            //                     onChange={e => this.setState({ last_name: e.target.value })}
+            //                     type="text"
+            //                     placeholder="Your last name"
+            //                 />
+            //                 <input
+            //                     value={first_name}
+            //                     onChange={e => this.setState({ first_name: e.target.value })}
+            //                     type="text"
+            //                     placeholder="Your last name"
+            //                 />
+            //             </React.Fragment>
+            //         )}
+            //         <input
+            //             value={email}
+            //             onChange={e => this.setState({ email: e.target.value })}
+            //             type="text"
+            //             placeholder="Your email address"
+            //         />
+            //         <input
+            //             value={password}
+            //             onChange={e => this.setState({ password: e.target.value })}
+            //             type="password"
+            //             placeholder="Choose a safe password"
+            //         />
+            //     </div>
+            //     <div className="">
+            //         <Mutation
+            //             mutation={this.state.login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+            //             variables={{ email, password, first_name, last_name }}
+            //             onCompleted={data => this._confirm(data)}
+            //         >
+            //             {mutation => (
+            //                 <div className="" onClick={mutation}>
+            //                     {this.state.login ? 'login' : 'create account'}
+            //                 </div>
+            //             )}
+            //         </Mutation>
+            //         <div
+            //             className=""
+            //             onClick={() => this.setState({ login: !login })}
+            //         >
+            //             {login
+            //                 ? 'need to create an account?'
+            //                 : 'already have an account?'}
+            //         </div>
+            //     </div>
+            // </div>
         );
     }
 }

@@ -6,22 +6,85 @@
     position: relative;
     max-height: 100vh;
     overflow: auto;
+    flex-direction: column;
+}
+
+.todoapp__tasklisttemplate__container .todoapp__tasklisttemplate__container__background {
+    height: 100px;
+    width: 100%;
+    position: fixed;
+}
+.todoapp__tasklisttemplate__container .todoapp__tasklisttemplate__container--background {
+    background: url("../../../assets/rob-bates-701730-unsplash.jpg") no-repeat center;
+    background-position-y: -14em;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+.todoapp__tasklisttemplate__container .todoapp__tasklisttemplate__container--gradient {
+    position: absolute;
+    top: 0;
+    background-image: linear-gradient(to right bottom, var(--primary-color), rgb(255,255,255));
+    opacity: 0.7;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
 }
 
 .todoapp__tasklisttemplate__container__layer {
+    margin-top: 100px;
     display: flex;
     width: 100%;
+    flex-direction: column;
+}
+
+.todoapp__tasklisttemplate__container__header {
+    /* height: 50px; */
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 12px;
+    justify-content: space-between;
+}
+
+.todoapp__tasklisttemplate__container__header .tasklist-name {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 20px 0;
+    display: flex;
+    align-items: baseline;
+    flex: 1;
+}
+
+.todoapp__tasklisttemplate__container__header .tasklist-name button {
+    width: auto !important;
+    color: var(--primary-color);
+    font-size: 16px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 5px 5px;
+    /* margin-left: 10px; */
+}
+
+.todoapp__tasklisttemplate__container__header .tasklist-name button:hover {
+    background-color: #f5f5f5;
 }
 
 .todoapp__tasklisttemplate__container__flexboxFix {
     display: flex;
     width: 100%;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    overflow: auto;
 }
 
 .tasks {
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: auto;
 }
 
 .tasks-item {
@@ -32,7 +95,7 @@
     word-wrap: break-word;
     word-break: break-word;
     padding: 0 12px;
-    box-shadow: 0 17px 0 -16px #e5e5e5;
+    box-shadow: 0 -17px 0 -16px #e5e5e5
 }
 
 .tasks-item-description {
@@ -86,4 +149,51 @@
 
 #add-task {
     width: 100%;
+}
+
+.tasks-item .tasks-item-fav {
+    margin-right: 20px;
+    color: var(--black-light-color);
+}
+
+.tasks-item .tasks-item-fav:hover {
+    cursor: pointer;
+    color: #FFD600;
+}
+
+
+
+.popup-tasklist-actions {
+  color: var(--black-color);
+  font-size: 14px;
+  font-weight: 400;
+    width: 100%;  
+}
+
+.popup-tasklist-actions ul,
+.popup-tasklist-actions li {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.popup-tasklist-actions li {
+    cursor: pointer;
+    height: 35px;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 15px 0 -14px #eaeaea;
+}
+
+.popup-tasklist-actions li:hover {
+    color: var(--primary-color);
+} 
+
+.popup-tasklist-header {
+    color: var(--black-color);
 }
