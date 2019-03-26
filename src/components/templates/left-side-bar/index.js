@@ -5,7 +5,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import './style.css';
 
 
-
 class LeftSideBar extends Component {
     constructor(props) {
         super(props);
@@ -29,6 +28,7 @@ class LeftSideBar extends Component {
                         taskslists {
                             id
                             label
+                            deletedAt
                             tasks {
                                 totalCount
                             }
@@ -37,6 +37,7 @@ class LeftSideBar extends Component {
                     taskslists(folder: true) {
                         id
                         label
+                        deletedAt
                         tasks {
                             totalCount
                         }

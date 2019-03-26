@@ -14,10 +14,6 @@ class ListDetails extends Component {
         this.toggleSideBar = this.toggleSideBar.bind(this);
     };
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-    }
-
     toggleSideBar(p) {
         this.setState({ status: 'open', task_id: p.id });
     }

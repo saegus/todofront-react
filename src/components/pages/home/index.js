@@ -53,7 +53,6 @@ class Home extends Component {
                     if (loading && !user) return <p>Loading...</p>;
                     if (error) return <p>Error...</p>;
                     const { me } = data;
-                    console.log(me)
                     return ( <div className="todoapp__container">
                             <LeftSideBar user={ me }/>
                             <Route pattern='/home' path='/home/:id' component={ ListDetailsComponent } />

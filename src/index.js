@@ -12,6 +12,7 @@ import { AUTH_TOKEN } from './constants';
 
 import * as serviceWorker from './serviceWorker';
 
+
 import 'tachyons';
 import './index.css';
 
@@ -29,9 +30,21 @@ const authLink = setContext((_, { headers }) => {
     }
 })
 
+const defaultOptions = {
+    watchQuery: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'ignore'
+    },
+    query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+    }
+}
+
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    defaultOptions: defaultOptions
 });
 
 
